@@ -15,7 +15,6 @@ const App = ({ coworking }) => {
           <Route exact path="/" element={<CoworkingListPage />} />
         </Routes>
       </Router>
-      {/* <CoworkingListPage /> */}
     </div>
   );
 };
