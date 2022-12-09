@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CoworkingDetail = ({ coworking }) => {
   if (!coworking) {
@@ -14,6 +15,11 @@ const CoworkingDetail = ({ coworking }) => {
         <p>Description: {coworking.description}</p>
         <p>From: {coworking.opening_time}</p>
         <p>To: {coworking.closing_time}</p>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Link to={`/coworking/${coworking.id}`}>
+            <button>Detail</button>
+          </Link>
+        </div>
       </div>
     </div>
   );
