@@ -17,6 +17,9 @@ export function Navigation() {
         <Nav className="me-auto">
           {isAuth ? <Nav.Link href="/auth-ping">AuthPing</Nav.Link> : null}
         </Nav>
+        <Nav className="me-auto">
+          {isAuth ? null : <Nav.Link href="/register">Sign up</Nav.Link>}
+        </Nav>
         <Nav>
           {isAuth ? (
             <Nav.Link href="/logout">Logout</Nav.Link>

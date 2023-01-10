@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navigation } from "./navigations/Navigation";
 import { Login } from "./auth/Login";
 import { Logout } from "./auth/Logout";
+import { SignUp } from "./auth/Register";
 import { AuthPing } from "./auth/Auth-ping";
 
 const App = ({ coworking }) => {
@@ -22,6 +23,7 @@ const App = ({ coworking }) => {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/auth-ping" element={<AuthPing />} />
+          <Route path="/register" element={<SignUp />} />
         </Routes>
       </Router>
     </div>
