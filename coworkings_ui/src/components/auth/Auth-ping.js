@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
-const BaseURL = process.env.REACT_APP_BASE_URL;
-
-const JWTPrefix = "Bearer ";
+import axiosInstance from "../Axios";
 
 export const AuthPing = () => {
   const [message, setMessage] = useState("");
@@ -14,14 +10,7 @@ export const AuthPing = () => {
     } else {
       (async () => {
         try {
-          const { data } = await axios.get(`${BaseURL}/api/auth-ping/`, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: localStorage.getItem("access_token")
-                ? JWTPrefix + localStorage.getItem("access_token")
-                : null,
-            },
-          });
+          const { data } = await axiosInstance.get("/api/auth-ping/");
 
           setMessage(data.message);
         } catch (e) {

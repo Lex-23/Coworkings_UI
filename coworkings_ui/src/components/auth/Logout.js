@@ -1,34 +1,21 @@
 import { useEffect } from "react";
-import axios from "axios";
-
-const JWTPrefix = "Bearer ";
+import axiosInstance from "../Axios";
 
 export const Logout = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.post(
-          "http://localhost:8000/api/logout/",
-          {
-            refresh_token: localStorage.getItem("refresh_token"),
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: localStorage.getItem("access_token")
-                ? JWTPrefix + localStorage.getItem("access_token")
-                : null,
-            },
-          },
-          { withCredentials: true }
-        );
+        const { data } = await axiosInstance.post("/api/logout/", {
+          refresh_token: localStorage.getItem("refresh_token"),
+        });
 
         console.log("logout", data);
         localStorage.clear();
-        axios.defaults.headers.common["Authorization"] = null;
+        axiosInstance.defaults.headers.common["Authorization"] = null;
         window.location.href = "/login";
       } catch (e) {
         console.log("logout not working");
+        console.log(e);
       }
     })();
   }, []);

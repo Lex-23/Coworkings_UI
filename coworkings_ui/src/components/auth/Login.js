@@ -1,7 +1,5 @@
-import axios from "axios";
 import { useState } from "react";
-
-const BaseURL = process.env.REACT_APP_BASE_URL;
+import axiosInstance from "../Axios";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,19 +13,14 @@ export const Login = () => {
       password: password,
     };
 
-    const { data } = await axios.post(
-      `${BaseURL}/api/auth/`,
-      user,
-      {
-        headers: { "Content-Type": "application/json" },
-      },
-      { withCRedentials: true }
-    );
+    const { data } = await axiosInstance.post("/api/auth/", user);
 
     localStorage.clear();
     localStorage.setItem("access_token", data.access);
     localStorage.setItem("refresh_token", data.refresh);
-    axios.defaults.headers.common["Authorization"] = `Bearer ${data["access"]}`;
+    axiosInstance.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${data["access"]}`;
     window.location.href = "/";
   };
 

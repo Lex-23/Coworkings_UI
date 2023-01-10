@@ -4,6 +4,20 @@ const baseURL = process.env.REACT_APP_BASE_URL;
 
 let refresh = false;
 
+const JWTPrefix = "Bearer ";
+
+const axiosInstance = axios.create({
+  baseURL: baseURL,
+  timeiut: 5000,
+  headers: {
+    Authorization: localStorage.getItem("access_token")
+      ? JWTPrefix + localStorage.getItem("access_token")
+      : null,
+    "Content-Type": "application/json",
+    accept: "application/json",
+  },
+});
+
 axios.interceptors.response.use(
   (resp) => resp,
   async (error) => {
@@ -11,8 +25,8 @@ axios.interceptors.response.use(
       refresh = true;
 
       console.log(localStorage.getItem("refresh_token"));
-      const response = await axios.post(
-        `${baseURL}/api/auth/refresh/`,
+      const response = await axiosInstance.post(
+        "/api/auth/refresh/",
         {
           refresh: localStorage.getItem("refresh_token"),
         },
@@ -38,3 +52,5 @@ axios.interceptors.response.use(
     return error;
   }
 );
+
+export default axiosInstance;
