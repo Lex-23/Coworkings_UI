@@ -12,18 +12,15 @@ const CoworkingDetailPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      try {
-        const { data: response } = await axios.get(
-          `${BaseURL}/api/coworkings/${params.id}`
-        );
-        setCoworking(response);
-      } catch (error) {
-        console.error(error.message);
-      }
+      const { data: response } = await axios.get(
+        `${BaseURL}/api/coworkings/${params.id}`
+      );
+      setCoworking(response);
+
       setLoading(false);
     };
 
-    fetchData();
+    fetchData().catch((err) => console.error(err));
   }, [params.id]);
 
   return (
